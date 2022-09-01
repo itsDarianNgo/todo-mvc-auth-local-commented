@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Todos</h1>
+    <ul> <!-- Uses EJS to create a list of todos -->
+    <% todos.forEach( el => { %> <!-- For each loop, takes in list of todo items -->
+            <li class='todoItem' data-id='<%=el._id%>'> <!-- Gives each list item class of "todoItem", takes in data-id value and gives it id of _id from MongoDB-->
+                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span> <!-- Ternary logic for CSS style. If completed is true, assign class of 'completed'. If not assign class of 'not' -->
+                <span class='del'> Delete </span> <!-- Creates span of 'delete'-->
+            </li>
+    <% }) %>    
+    </ul>
+
+    <h2><%= user.userName %> has <%= left %> things left to do.</h2> <!-- Grabs "userName" from mongoDB and how many todos are left-->
+
+    <form action="/todos/createTodo" method='POST'> <!-- Form to enter todo item with POST request-->
+        <input type="text" placeholder="Enter Todo Item" name='todoItem'>
+        <input type="submit">
+    </form>
+
+    <a href="/logout">Logout</a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
